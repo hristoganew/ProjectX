@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -16,11 +17,13 @@ import com.google.firebase.storage.StorageReference;
 public class ProjectxActivity extends AppCompatActivity {
 
     protected FirebaseAuth mAuth;
+    protected FirebaseUser currentUser;
     protected DatabaseReference mDatabase;
     protected StorageReference mStorage;
 
     public void initFirebase(){
         mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
     }
