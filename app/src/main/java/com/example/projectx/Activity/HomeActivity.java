@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.projectx.R;
 
 
@@ -28,7 +29,7 @@ public class HomeActivity extends ProjectxActivity {
 
         if (currentUser != null){
             profileName.setText(currentUser.getDisplayName());
-            profilePicture.setImageURI(currentUser.getPhotoUrl());
+            Glide.with(this).load(currentUser.getPhotoUrl()).into(profilePicture);
         }
     }
 

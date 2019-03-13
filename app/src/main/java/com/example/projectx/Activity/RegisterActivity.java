@@ -64,10 +64,10 @@ public class RegisterActivity extends ProjectxActivity {
             }
         });
 
-        name = (EditText)findViewById(R.id.full_name_input);
-        email = (EditText)findViewById(R.id.email_input);
-        password = (EditText)findViewById(R.id.password_input);
-        rePassword = (EditText)findViewById(R.id.password_again_input);
+        name = (EditText) findViewById(R.id.full_name_input);
+        email = (EditText) findViewById(R.id.email_input);
+        password = (EditText) findViewById(R.id.password_input);
+        rePassword = (EditText) findViewById(R.id.password_again_input);
 
         registerButton = (Button) findViewById(R.id.register_button);
         loadingBar = (ProgressBar) findViewById(R.id.register_progress_bar);
@@ -103,29 +103,30 @@ public class RegisterActivity extends ProjectxActivity {
         }
     }
 
-    public void register(View view){
+    public void register(View view) {
+        nameText = name.getText().toString();
         emailText = email.getText().toString();
         passwordText = password.getText().toString();
         rePasswordText = rePassword.getText().toString();
 
         showLoading(registerButton, loadingBar);
 
-        if ((emailText.isEmpty() || passwordText.isEmpty()) && !password.equals(rePasswordText)){
+        if ((emailText.isEmpty() || passwordText.isEmpty()) && !password.equals(rePasswordText)) {
             showMessage("Please make sure you have an email or password!");
             stopLoading(registerButton, loadingBar);
-        }else {
+        } else {
             createUserAccount();
         }
 
     }
 
-    private void createUserAccount(){
+    private void createUserAccount() {
         mAuth.createUserWithEmailAndPassword(emailText, passwordText).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     updateUserInfo();
-                }else{
+                } else {
                     showMessage("Account Creation Failed " + task.getException().getMessage());
                     stopLoading(registerButton, loadingBar);
                 }
@@ -133,53 +134,54 @@ public class RegisterActivity extends ProjectxActivity {
         });
     }
 
-    private void updateUserInfo(){
+    private void updateUserInfo() {
         final FirebaseUser user = mAuth.getCurrentUser();
         final DatabaseReference usersTable = mDatabase.child("users");
 
         StorageReference userPhotosStorage = mStorage.child("user_photos");
         final StorageReference imageFilePath = userPhotosStorage.child(userImageUri.getLastPathSegment());
 
-        imageFilePath.putFile(userImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        imageFilePath.putFile(userImageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onSuccess(Uri uri) {
-                        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(nameText)
-                                .setPhotoUri(uri)
-                                .build();
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        user.updateProfile(profileUpdate)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            User newUser = new User(user.getUid(), nameText, emailText);
+                        imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(nameText)
+                                        .setPhotoUri(uri)
+                                        .build();
 
-                                            usersTable.child(user.getUid()).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()){
-                                                        showMessage("Account Created");
-                                                    }else{
-                                                        showMessage(task.getException().getMessage());
-                                                    }
+                                user.updateProfile(profileUpdate)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    User newUser = new User(user.getUid(), nameText, emailText);
+
+                                                    usersTable.child(user.getUid()).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                showMessage("Account Created");
+                                                            } else {
+                                                                showMessage(task.getException().getMessage());
+                                                            }
+                                                        }
+                                                    });
+                                                } else {
+                                                    showMessage(task.getException().getMessage());
                                                 }
-                                            });
-                                        }else{
-                                            showMessage(task.getException().getMessage());
-                                        }
-                                    }
-                                });
+                                            }
+                                        });
 
-                        updateUI(LoginActivity.class);
+                                updateUI(LoginActivity.class);
+                            }
+                        });
                     }
                 });
-            }
-        });
 
 
     }
