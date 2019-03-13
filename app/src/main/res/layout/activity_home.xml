@@ -17,40 +17,46 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
-            android:foreground="?android:selectableItemBackground"
-            android:clickable="true"
-
             android:layout_width="340dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp">
+
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:onClick="openProfileSetting">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/blue_round_background"
-                    android:src="@drawable/ic_message_black_24dp"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:src="@drawable/ic_message_black_24dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:text="Profile Settings"/>
+                    android:text="Profile Settings"
+                    android:textStyle="bold" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/lightgrey"/>
+                    android:background="@color/lightgrey" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:padding="5dp"
                     android:text="Check your profile"
-                    android:padding="5dp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:textColor="@android:color/darker_gray" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -65,77 +71,90 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
-            android:foreground="?android:selectableItemBackground"
-            android:clickable="true"
-
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp">
+
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:onClick="openDiscover">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/blue_round_background"
-                    android:src="@drawable/ic_message_black_24dp"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:src="@drawable/ic_message_black_24dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:text="Discover"/>
+                    android:text="Discover"
+                    android:textStyle="bold" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/lightgrey"/>
+                    android:background="@color/lightgrey" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:padding="5dp"
                     android:text="Discover movies in your local cinemas"
-                    android:padding="5dp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:textColor="@android:color/darker_gray" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:foreground="?android:selectableItemBackground"
-            android:clickable="true"
 
+        <android.support.v7.widget.CardView
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp">
+
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:onClick="openMessaging">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/blue_round_background"
-                    android:src="@drawable/ic_message_black_24dp"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:src="@drawable/ic_message_black_24dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:text="Messaging"/>
+                    android:text="Messaging"
+                    android:textStyle="bold" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/lightgrey"/>
+                    android:background="@color/lightgrey" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Check you Messages and write to others"
                     android:padding="5dp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:text="Check you Messages and write to others"
+                    android:textColor="@android:color/darker_gray" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -149,43 +168,48 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
-            android:foreground="?android:selectableItemBackground"
-            android:clickable="true"
-
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp">
+
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:onClick="logout">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/blue_round_background"
-                    android:src="@drawable/ic_message_black_24dp"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:src="@drawable/ic_message_black_24dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:text="Logout"/>
+                    android:text="Logout"
+                    android:textStyle="bold" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/lightgrey"/>
+                    android:background="@color/lightgrey" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Logout of this user account"
                     android:padding="5dp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:text="Logout of this user account"
+                    android:textColor="@android:color/darker_gray" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
-
 
     </LinearLayout>
 

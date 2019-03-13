@@ -3,7 +3,7 @@
     package="com.example.projectx">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.RegisterActivity"></activity>
+        <activity android:name=".Activity.MessagingActivity"></activity>
+        <activity android:name=".Activity.ProfileActivity" />
+        <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Activity.LoginActivity">
             <intent-filter>
