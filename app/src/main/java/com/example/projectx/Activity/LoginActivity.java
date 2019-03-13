@@ -56,6 +56,7 @@ public class LoginActivity extends ProjectxActivity {
                     updateUI(HomeActivity.class);
                 }else{
                     showMessage("Login Failed " + task.getException().getMessage());
+                    stopLoading(loadingButton, loadingBar);
                 }
             }
         });
