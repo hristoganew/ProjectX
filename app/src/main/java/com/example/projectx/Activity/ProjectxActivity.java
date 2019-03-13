@@ -21,34 +21,34 @@ public class ProjectxActivity extends AppCompatActivity {
     protected DatabaseReference mDatabase;
     protected StorageReference mStorage;
 
-    public void initFirebase(){
+    public void initFirebase() {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
     }
 
-    public void showMessage(String message){
+    public void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    public void updateUI(Class activityClass){
+    public void updateUI(Class activityClass) {
         Intent activity = new Intent(getApplicationContext(), activityClass);
         startActivity(activity);
     }
 
-    public void updateUIAndFinish(Class activityClass){
+    public void updateUIAndFinish(Class activityClass) {
         Intent activity = new Intent(getApplicationContext(), activityClass);
         startActivity(activity);
         finish();
     }
 
-    public void showLoading(Button button, ProgressBar bar){
+    public void showLoading(Button button, ProgressBar bar) {
         button.setVisibility(View.INVISIBLE);
         bar.setVisibility(View.VISIBLE);
     }
 
-    public void stopLoading(Button button, ProgressBar bar){
+    public void stopLoading(Button button, ProgressBar bar) {
         button.setVisibility(View.VISIBLE);
         bar.setVisibility(View.INVISIBLE);
     }

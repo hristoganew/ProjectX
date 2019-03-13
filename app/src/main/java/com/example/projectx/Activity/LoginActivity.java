@@ -28,33 +28,33 @@ public class LoginActivity extends ProjectxActivity {
         initProperties();
     }
 
-    private void initProperties(){
-        email = (EditText)findViewById(R.id.email_input);
-        password = (EditText)findViewById(R.id.password_input);
-        loadingButton = (Button)findViewById(R.id.login_button);
+    private void initProperties() {
+        email = (EditText) findViewById(R.id.email_input);
+        password = (EditText) findViewById(R.id.password_input);
+        loadingButton = (Button) findViewById(R.id.login_button);
         loadingBar = (ProgressBar) findViewById(R.id.login_progress_bar);
     }
 
-    public void login(View view){
+    public void login(View view) {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
 
-        if (emailText.isEmpty() || passwordText.isEmpty()){
+        if (emailText.isEmpty() || passwordText.isEmpty()) {
             showMessage("Email or Password Incorrect!");
-        }else {
+        } else {
             signInUser(emailText, passwordText);
         }
     }
 
-    private void signInUser(String email, String password){
+    private void signInUser(String email, String password) {
         showLoading(loadingButton, loadingBar);
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     updateUIAndFinish(HomeActivity.class);
-                }else{
+                } else {
                     showMessage("Login Failed " + task.getException().getMessage());
                     stopLoading(loadingButton, loadingBar);
                 }
@@ -62,7 +62,7 @@ public class LoginActivity extends ProjectxActivity {
         });
     }
 
-    public void register(View view){
+    public void register(View view) {
         updateUI(RegisterActivity.class);
     }
 
@@ -72,7 +72,7 @@ public class LoginActivity extends ProjectxActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if (user != null){
+        if (user != null) {
             updateUIAndFinish(HomeActivity.class);
         }
     }

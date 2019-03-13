@@ -23,29 +23,29 @@ public class HomeActivity extends ProjectxActivity {
         initProperties();
     }
 
-    private void initProperties(){
+    private void initProperties() {
         profilePicture = (ImageView) findViewById(R.id.profile_picture);
         profileName = (TextView) findViewById(R.id.profile_name);
 
-        if (currentUser != null){
+        if (currentUser != null) {
             profileName.setText(currentUser.getDisplayName());
             Glide.with(this).load(currentUser.getPhotoUrl()).into(profilePicture);
         }
     }
 
-    public void openProfileSetting(View view){
+    public void openProfileSetting(View view) {
         updateUI(ProfileActivity.class);
     }
 
-    public void openMessaging(View view){
+    public void openMessaging(View view) {
         updateUI(MessagingActivity.class);
     }
 
-    public void openDiscover(View view){
+    public void openDiscover(View view) {
 
     }
 
-    public void logout(View view){
+    public void logout(View view) {
         mAuth.signOut();
         updateUIAndFinish(LoginActivity.class);
     }
