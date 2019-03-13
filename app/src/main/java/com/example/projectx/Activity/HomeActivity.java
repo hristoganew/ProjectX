@@ -2,11 +2,14 @@ package com.example.projectx.Activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.projectx.R;
 
 
 public class HomeActivity extends ProjectxActivity {
+
+    ImageView profilePicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +17,15 @@ public class HomeActivity extends ProjectxActivity {
         setContentView(R.layout.activity_home);
 
         initFirebase();
+        initProperties();
+    }
+
+    private void initProperties(){
+        profilePicture = (ImageView) findViewById(R.id.profile_picture);
+
+        if (currentUser != null){
+            profilePicture.setImageURI(currentUser.getPhotoUrl());
+        }
     }
 
     public void openProfileSetting(View view){
