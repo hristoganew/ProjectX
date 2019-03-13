@@ -11,23 +11,30 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.example.projectx.Model.User;
 import com.example.projectx.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class RegisterActivity extends ProjectxActivity {
 
     EditText email, password, rePassword, name;
     String emailText, passwordText, rePasswordText, nameText;
     ImageView userPhoto;
+    ProgressBar loadingBar;
+    Button registerButton;
 
     static int PReqCode = 1;
     static int REQUESTCODE = 1;
@@ -61,6 +68,9 @@ public class RegisterActivity extends ProjectxActivity {
         email = (EditText)findViewById(R.id.email_input);
         password = (EditText)findViewById(R.id.password_input);
         rePassword = (EditText)findViewById(R.id.password_again_input);
+
+        registerButton = (Button) findViewById(R.id.register_button);
+        loadingBar = (ProgressBar) findViewById(R.id.register_progress_bar);
     }
 
     private void openGallery() {
@@ -98,8 +108,11 @@ public class RegisterActivity extends ProjectxActivity {
         passwordText = password.getText().toString();
         rePasswordText = rePassword.getText().toString();
 
+        showLoading(registerButton, loadingBar);
+
         if ((emailText.isEmpty() || passwordText.isEmpty()) && !password.equals(rePasswordText)){
             showMessage("Please make sure you have an email or password!");
+            stopLoading(registerButton, loadingBar);
         }else {
             createUserAccount();
         }
@@ -114,6 +127,7 @@ public class RegisterActivity extends ProjectxActivity {
                     updateUserInfo();
                 }else{
                     showMessage("Account Creation Failed " + task.getException().getMessage());
+                    stopLoading(registerButton, loadingBar);
                 }
             }
         });
@@ -121,33 +135,52 @@ public class RegisterActivity extends ProjectxActivity {
 
     private void updateUserInfo(){
         final FirebaseUser user = mAuth.getCurrentUser();
-        final DatabaseReference reference = mDatabase.child("users");
+        final DatabaseReference usersTable = mDatabase.child("users");
 
-        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nameText).build();
+        StorageReference userPhotosStorage = mStorage.child("user_photos");
+        final StorageReference imageFilePath = userPhotosStorage.child(userImageUri.getLastPathSegment());
 
-        user.updateProfile(profileUpdate)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+        imageFilePath.putFile(userImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            User newUser = new User(user.getUid(), nameText, emailText);
+                    public void onSuccess(Uri uri) {
+                        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(nameText)
+                                .setPhotoUri(uri)
+                                .build();
 
-                            reference.child(user.getUid()).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        showMessage("Account Created");
-                                    }else{
-                                        showMessage(task.getException().getMessage());
+                        user.updateProfile(profileUpdate)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            User newUser = new User(user.getUid(), nameText, emailText);
+
+                                            usersTable.child(user.getUid()).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()){
+                                                        showMessage("Account Created");
+                                                    }else{
+                                                        showMessage(task.getException().getMessage());
+                                                    }
+                                                }
+                                            });
+                                        }else{
+                                            showMessage(task.getException().getMessage());
+                                        }
                                     }
-                                }
-                            });
-                        }else{
-                            showMessage(task.getException().getMessage());
-                        }
+                                });
+
+                        updateUI(LoginActivity.class);
                     }
                 });
+            }
+        });
 
-        updateUI(LoginActivity.class);
+
     }
 }
