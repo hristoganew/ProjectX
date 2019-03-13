@@ -11,6 +11,7 @@ import com.example.projectx.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends ProjectxActivity {
 
@@ -64,4 +65,14 @@ public class LoginActivity extends ProjectxActivity {
         updateUI(RegisterActivity.class);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null){
+            updateUI(HomeActivity.class);
+        }
+    }
 }
