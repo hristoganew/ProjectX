@@ -53,7 +53,7 @@ public class LoginActivity extends ProjectxActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    updateUI(HomeActivity.class);
+                    updateUIAndFinish(HomeActivity.class);
                 }else{
                     showMessage("Login Failed " + task.getException().getMessage());
                     stopLoading(loadingButton, loadingBar);
