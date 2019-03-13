@@ -73,7 +73,7 @@ public class LoginActivity extends ProjectxActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null){
-            updateUI(HomeActivity.class);
+            updateUIAndFinish(HomeActivity.class);
         }
     }
 }
