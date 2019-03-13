@@ -12,6 +12,8 @@ public class HomeActivity extends ProjectxActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        initFirebase();
     }
 
     public void openProfileSetting(View view){
@@ -27,6 +29,7 @@ public class HomeActivity extends ProjectxActivity {
     }
 
     public void logout(View view){
-
+        mAuth.signOut();
+        updateUIAndFinish(LoginActivity.class);
     }
 }
