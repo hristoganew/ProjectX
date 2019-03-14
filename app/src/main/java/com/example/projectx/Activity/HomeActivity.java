@@ -31,7 +31,7 @@ public class HomeActivity extends ProjectxActivity {
         profilePicture = (ImageView) findViewById(R.id.profile_picture);
         profileName = (TextView) findViewById(R.id.profile_name);
         darkModeSwitch = (Switch) findViewById(R.id.dark_mode_switch);
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        if (preferences.loadDarkTheme() == true) {
             darkModeSwitch.setChecked(true);
         }
 
@@ -39,10 +39,10 @@ public class HomeActivity extends ProjectxActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    preferences.setDarkThemeState(true);
                     updateUIAndFinish(HomeActivity.class);
                 } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    preferences.setDarkThemeState(false);
                     updateUIAndFinish(HomeActivity.class);
                 }
             }
