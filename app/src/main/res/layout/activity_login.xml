@@ -15,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Sign in"></android.support.v7.widget.Toolbar>
+        app:title="Sign in"
+        app:titleTextColor="?attr/textColor"></android.support.v7.widget.Toolbar>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -25,6 +26,7 @@
         app:layout_constraintGuide_begin="355dp" />
 
     <EditText
+        android:textColor="?attr/textColor"
         android:id="@+id/email_input"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
@@ -38,6 +40,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:textColor="?attr/textColor"
         android:id="@+id/password_input"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
