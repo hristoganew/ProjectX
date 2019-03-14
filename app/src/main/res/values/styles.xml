@@ -13,6 +13,7 @@
         <item name="textColor">@color/textColorLight</item>
         <item name="tintColor">@color/tintColorLight</item>
         <item name="buttonBackground">@color/buttonBackgroundLight</item>
+        <item name="android:textColorHint">@color/textColorLight</item>
 
         <item name="android:windowAnimationStyle">@style/WindowTransitionAnimation</item>
     </style>
@@ -27,6 +28,7 @@
         <item name="textColor">@color/textColorDark</item>
         <item name="tintColor">@color/tintColorDark</item>
         <item name="buttonBackground">@color/buttonBackgroundDark</item>
+        <item name="android:textColorHint">@color/textColorDark</item>
 
         <item name="android:windowAnimationStyle">@style/WindowTransitionAnimation</item>
     </style>
