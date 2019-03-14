@@ -1,11 +1,39 @@
 <resources>
 
     <!-- Base application theme. -->
+    <!--light mode-->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimaryLight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkLight</item>
+        <item name="colorAccent">@color/colorAccentLight</item>
+        <item name="background">@color/backgroundColorLight</item>
+        <item name="cardBackground">@color/cardBackgroundColorLight</item>
+        <item name="textColor">@color/textColorLight</item>
+        <item name="tintColor">@color/tintColorLight</item>
+        <item name="buttonBackground">@color/buttonBackgroundLight</item>
+
+        <item name="android:windowAnimationStyle">@style/WindowTransitionAnimation</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkDark</item>
+        <item name="colorAccent">@color/colorAccentDark</item>
+        <item name="background">@color/backgroundColorDark</item>
+        <item name="cardBackground">@color/cardBackgroundColorDark</item>
+        <item name="textColor">@color/textColorDark</item>
+        <item name="tintColor">@color/tintColorDark</item>
+        <item name="buttonBackground">@color/buttonBackgroundDark</item>
+
+        <item name="android:windowAnimationStyle">@style/WindowTransitionAnimation</item>
+    </style>
+
+    <style name="WindowTransitionAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
 </resources>
