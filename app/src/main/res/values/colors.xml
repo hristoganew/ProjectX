@@ -5,9 +5,9 @@
     <color name="colorAccentLight">#0589e1</color>
     <color name="backgroundColorLight">#fcfcfc</color>
     <color name="cardBackgroundColorLight">#ededed</color>
-    <color name="buttonBackgroundLight">#fcfcfc</color>
-    <color name="textColorLight">#fcfcfc</color>
-    <color name="tintColorLight">#fcfcfc</color>
+    <color name="buttonBackgroundLight">#2196F3</color>
+    <color name="textColorLight">#808080</color>
+    <color name="tintColorLight">#000000</color>
 
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorPrimaryDarkDark">#000000</color>

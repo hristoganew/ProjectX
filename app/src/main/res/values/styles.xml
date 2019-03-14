@@ -8,7 +8,7 @@
         <item name="colorPrimary">@color/colorPrimaryLight</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkLight</item>
         <item name="colorAccent">@color/colorAccentLight</item>
-        <item name="background">@color/backgroundColorLight</item>
+        <item name="appBackground">@color/backgroundColorLight</item>
         <item name="cardBackground">@color/cardBackgroundColorLight</item>
         <item name="textColor">@color/textColorLight</item>
         <item name="tintColor">@color/tintColorLight</item>
@@ -22,7 +22,7 @@
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkDark</item>
         <item name="colorAccent">@color/colorAccentDark</item>
-        <item name="background">@color/backgroundColorDark</item>
+        <item name="appBackground">@color/backgroundColorDark</item>
         <item name="cardBackground">@color/cardBackgroundColorDark</item>
         <item name="textColor">@color/textColorDark</item>
         <item name="tintColor">@color/tintColorDark</item>

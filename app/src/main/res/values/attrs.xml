@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ds" >
-        <attr name="background" format="color" />
+        <attr name="appBackground" format="color" />
         <attr name="cardBackground" format="color" />
         <attr name="buttonBackground" format="color" />
         <attr name="textColor" format="color" />
