@@ -1,8 +1,11 @@
 package com.example.projectx.Activity;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -13,6 +16,7 @@ public class HomeActivity extends ProjectxActivity {
 
     ImageView profilePicture;
     TextView profileName;
+    Switch darkModeSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,24 @@ public class HomeActivity extends ProjectxActivity {
     private void initProperties() {
         profilePicture = (ImageView) findViewById(R.id.profile_picture);
         profileName = (TextView) findViewById(R.id.profile_name);
+        darkModeSwitch = (Switch) findViewById(R.id.dark_mode_switch);
+        if (preferences.loadDarkTheme() == true) {
+            darkModeSwitch.setChecked(true);
+        }
+
+        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    preferences.setDarkThemeState(true);
+                    updateUIAndFinish(HomeActivity.class);
+                } else {
+                    preferences.setDarkThemeState(false);
+                    updateUIAndFinish(HomeActivity.class);
+                }
+            }
+        });
+
 
         if (currentUser != null) {
             profileName.setText(currentUser.getDisplayName());
