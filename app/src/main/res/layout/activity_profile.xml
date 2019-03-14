@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.ProfileActivity">
+    tools:context=".Activity.ProfileActivity"
+    android:background="?attr/appBackground">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="405dp">
+        android:layout_height="405dp"
+        android:background="?attr/appBackground">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
@@ -42,7 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:background="?attr/cardBackground">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:orientation="vertical"
@@ -53,7 +56,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Photos"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        android:textColor="?attr/textColor"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -72,7 +76,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Photos"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        android:textColor="?attr/textColor"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -91,7 +96,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Photos"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        android:textColor="?attr/textColor"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -130,7 +136,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:textStyle="bold"
-                />
+                android:textColor="?attr/textColor"/>
         </LinearLayout>
 
         <LinearLayout
@@ -152,7 +158,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:textStyle="bold"
-                />
+                android:textColor="?attr/textColor"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -173,7 +179,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:textStyle="bold"
-                />
+                android:textColor="?attr/textColor"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -194,7 +200,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:textStyle="bold"
-                />
+                android:textColor="?attr/textColor"/>
         </LinearLayout>
 
     </LinearLayout>
