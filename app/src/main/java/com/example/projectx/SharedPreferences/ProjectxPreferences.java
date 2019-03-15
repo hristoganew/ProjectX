@@ -20,4 +20,15 @@ public class ProjectxPreferences {
         Boolean state = preferences.getBoolean("nightMode",false);
         return  state;
     }
+
+    public void setIntroState(Boolean state) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("intro", state);
+        editor.commit();
+    }
+
+    public Boolean loadIntro(){
+        Boolean state = preferences.getBoolean("intro",false);
+        return  state;
+    }
 }

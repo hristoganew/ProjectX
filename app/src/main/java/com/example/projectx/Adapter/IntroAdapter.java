@@ -23,17 +23,20 @@ public class IntroAdapter extends PagerAdapter {
 
     public int[] images= {
             R.drawable.img1,
-            R.drawable.img2
+            R.drawable.img2,
+            R.drawable.img2,
     };
 
     public String[] headings = {
             "Night Mode",
-            "Message"
+            "Message",
+            "Ready",
     };
 
     public String[] descriptions = {
-            "Test testtest testeste teste test test. Test testtest testeste teste test test!",
-            "Test testtest testeste teste test test. Test testtest testeste teste test test!"
+            "Experience our app in night mode with just one click!",
+            "You can message all of your friend fast and reliable!",
+            "Ready to get more of our app. Click on \"Get Started\" to find out what we have in store for you!",
     };
 
 

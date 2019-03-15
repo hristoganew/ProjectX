@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:background="@color/buttonBackgroundDark"
+            android:background="@drawable/blue_gradient_background"
             android:orientation="vertical">
             <ImageView
                 android:layout_marginTop="40dp"

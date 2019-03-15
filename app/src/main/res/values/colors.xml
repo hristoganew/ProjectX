@@ -18,6 +18,8 @@
     <color name="textColorDark">#ffffff</color>
     <color name="tintColorDark">#ffffff</color>
 
+    <color name="white">#FFF</color>
+    <color name="transparentWhite">#ccc</color>
     <color name="lightgrey">#ededed</color>
     <color name="deeppurple">#7c4dff</color>
     <color name="yellow">#ffb300</color>
