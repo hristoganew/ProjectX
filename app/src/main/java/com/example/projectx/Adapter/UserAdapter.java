@@ -10,22 +10,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.projectx.R;
 
 import com.example.projectx.Model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
+    Button addFriendButton;
     ImageView profilePicture;
-    TextView profileName, email, phone, txtclose;
+    TextView profileName, txtclose;
 
     Dialog myDialog;
     private Context mContext;
@@ -78,20 +83,26 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             name = itemView.findViewById(R.id.name_text);
             image = itemView.findViewById(R.id.profile_image);
-
             cardView = itemView.findViewById(R.id.card_view);
         }
     }
 
-    private void showDialog(User user) {
+    private void showDialog(final User user) {
         myDialog.setContentView(R.layout.user_popup_dialog);
         txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
-
+        addFriendButton = (Button) myDialog.findViewById(R.id.add_friend_button);
         profilePicture = (ImageView) myDialog.findViewById(R.id.profile_picture);
         profileName = (TextView) myDialog.findViewById(R.id.profile_name);
 
         Glide.with(mContext).load(user.getPhoto()).into(profilePicture);
         profileName.setText(user.getName());
+
+        addFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFriend(user.getId());
+            }
+        });
 
         txtclose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,5 +113,21 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
+    }
+
+    private void addFriend(String id){
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
+
+        userReference.child("friends").child(id).setValue(id).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+
+                }else{
+
+                }
+            }
+        });
     }
 }
