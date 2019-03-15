@@ -2,6 +2,7 @@ package com.example.projectx.Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.projectx.Activity.ChatActivity;
 import com.example.projectx.R;
 
 import com.example.projectx.Model.User;
@@ -35,10 +37,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     Dialog myDialog;
     private Context mContext;
     private List<User> mUsers;
+    private Boolean friendsList = false;
 
-    public UserAdapter(Context mContext, List<User> mUsers) {
+    public UserAdapter(Context mContext, List<User> mUsers,Boolean friendsList) {
         this.mContext = mContext;
         this.mUsers = mUsers;
+        this.friendsList = friendsList;
 
         myDialog = new Dialog(mContext);
     }
@@ -54,6 +58,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final User user = mUsers.get(i);
+        final Boolean friendsListView = this.friendsList;
 
         viewHolder.name.setText(user.getName());
 
@@ -62,7 +67,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(user);
+
+                if (friendsListView == true){
+                    Intent activity = new Intent(mContext, ChatActivity.class);
+                    mContext.startActivity(activity);
+                }else{
+                    showDialog(user);
+                }
             }
         });
     }

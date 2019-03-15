@@ -61,7 +61,7 @@ public class DiscoverFriendsActivity extends ProjectxActivity {
     }
 
     private void initUsersList(){
-        userAdapter = new UserAdapter(this, mUsers);
+        userAdapter = new UserAdapter(this, mUsers, false);
         recyclerView.setAdapter(userAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
