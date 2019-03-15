@@ -70,6 +70,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
                 if (friendsListView == true){
                     Intent activity = new Intent(mContext, ChatActivity.class);
+                    activity.putExtra("userId", user.getId());
                     mContext.startActivity(activity);
                 }else{
                     showDialog(user);
