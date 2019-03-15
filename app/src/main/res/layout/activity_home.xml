@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Discover"
+                    android:text="Search Friends"
                     android:textStyle="bold"
                     android:textColor="?attr/textColor"/>
 
@@ -129,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="Discover movies in your local cinemas"
+                    android:text="Find new friends from all over the world!"
                     android:textColor="@android:color/darker_gray" />
             </LinearLayout>
         </android.support.v7.widget.CardView>

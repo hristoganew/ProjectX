@@ -64,7 +64,7 @@ public class HomeActivity extends ProjectxActivity {
     }
 
     public void openDiscover(View view) {
-
+        updateUI(DiscoverFriendsActivity.class);
     }
 
     public void logout(View view) {

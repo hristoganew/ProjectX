@@ -149,6 +149,7 @@ public class RegisterActivity extends ProjectxActivity {
                         imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+                                final String imageLink = uri.toString();
                                 UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(nameText)
                                         .setPhotoUri(uri)
@@ -159,7 +160,7 @@ public class RegisterActivity extends ProjectxActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    User newUser = new User(user.getUid(), nameText, emailText);
+                                                    User newUser = new User(user.getUid(), nameText, emailText, imageLink);
 
                                                     usersTable.child(user.getUid()).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override

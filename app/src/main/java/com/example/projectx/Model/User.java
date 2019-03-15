@@ -5,15 +5,17 @@ public class User {
     private String id;
     private String name;
     private String email;
+    private String photo;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String id, String name, String email) {
+    public User(String id, String name, String email, String photo) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.photo = photo;
     }
 
     public String getId() {
@@ -38,5 +40,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
