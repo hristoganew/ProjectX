@@ -9,6 +9,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.projectx.R;
 
 
@@ -51,7 +52,7 @@ public class HomeActivity extends ProjectxActivity {
 
         if (currentUser != null) {
             profileName.setText(currentUser.getDisplayName());
-            Glide.with(this).load(currentUser.getPhotoUrl()).into(profilePicture);
+            Glide.with(this).load(currentUser.getPhotoUrl()).apply(RequestOptions.circleCropTransform()).into(profilePicture);
         }
     }
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.projectx.Model.Chat;
 import com.example.projectx.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,7 +56,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         if (imageUrl.equals("default")) {
             viewHolder.image.setImageResource(R.mipmap.ic_launcher);
         }else{
-            Glide.with(mContext).load(imageUrl).into(viewHolder.image);
+            Glide.with(mContext).load(imageUrl).apply(RequestOptions.circleCropTransform()).into(viewHolder.image);
         }
 
     }

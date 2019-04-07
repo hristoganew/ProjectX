@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.projectx.Activity.ChatActivity;
 import com.example.projectx.R;
 
@@ -62,7 +63,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         viewHolder.name.setText(user.getName());
 
-        Glide.with(mContext).load(user.getPhoto()).into(viewHolder.image);
+        Glide.with(mContext).load(user.getPhoto()).apply(RequestOptions.circleCropTransform()).into(viewHolder.image);
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +107,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         profilePicture = (ImageView) myDialog.findViewById(R.id.profile_picture);
         profileName = (TextView) myDialog.findViewById(R.id.profile_name);
 
-        Glide.with(mContext).load(user.getPhoto()).into(profilePicture);
+        Glide.with(mContext).load(user.getPhoto()).apply(RequestOptions.circleCropTransform()).into(profilePicture);
         profileName.setText(user.getName());
 
         addFriendButton.setOnClickListener(new View.OnClickListener() {
