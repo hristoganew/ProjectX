@@ -68,6 +68,10 @@ public class HomeActivity extends ProjectxActivity {
         updateUI(DiscoverFriendsActivity.class);
     }
 
+    public void openPosts(View view) {
+        updateUI(PostActivity.class);
+    }
+
     public void logout(View view) {
         mAuth.signOut();
         updateUIAndFinish(LoginActivity.class);

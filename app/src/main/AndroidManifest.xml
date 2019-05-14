@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.ChatActivity"></activity>
+        <activity android:name=".Activity.PostActivity"></activity>
+        <activity android:name=".Activity.ChatActivity" />
         <activity android:name=".Activity.DiscoverFriendsActivity" />
         <activity android:name=".Activity.IntroActivity">
             <intent-filter>
