@@ -34,9 +34,9 @@ public class IntroActivity extends ProjectxActivity {
 
         setContentView(R.layout.activity_intro);
 
-        mSlideViewPager = (ViewPager) findViewById(R.id.intro_view_pager);
-        mDotLayout = (LinearLayout) findViewById(R.id.intro_dot_layout);
-        getStartedButton = (Button)findViewById(R.id.get_started_button);
+        mSlideViewPager = findViewById(R.id.intro_view_pager);
+        mDotLayout = findViewById(R.id.intro_dot_layout);
+        getStartedButton = findViewById(R.id.get_started_button);
         buttonAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_animation);
 
         adapter = new IntroAdapter(this);
