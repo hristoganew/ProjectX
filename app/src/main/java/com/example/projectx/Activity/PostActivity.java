@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ public class PostActivity extends ProjectxActivity {
     TextView closeTextButton;
     Spinner postTypeDropdown;
 
-    String [] postTypes = new String[]{"Text", "Photo"};
+    String [] postTypes = new String[]{"Text", "Photo", "Location"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,29 @@ public class PostActivity extends ProjectxActivity {
         postTypeDropdown = myDialog.findViewById(R.id.postTypeDropdown);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, postTypes);
         postTypeDropdown.setAdapter(adapter);
+
+        postTypeDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = (String)parent.getItemAtPosition(position);
+                if (item.equals("Text")) {
+
+                }
+
+                if (item.equals("Photo")) {
+
+                }
+
+                if (item.equals("Location")) {
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         //dialog close button
         closeTextButton = myDialog.findViewById(R.id.closeTextButton);
