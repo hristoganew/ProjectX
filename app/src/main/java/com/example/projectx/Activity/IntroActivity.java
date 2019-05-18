@@ -3,9 +3,10 @@ package com.example.projectx.Activity;
 import com.example.projectx.Adapter.IntroAdapter;
 import com.example.projectx.R;
 
+import android.support.v4.content.ContextCompat;
+import android.support.v4.text.HtmlCompat;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -76,15 +77,15 @@ public class IntroActivity extends ProjectxActivity {
 
         for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
-            mDots[i].setText(Html.fromHtml("&#8226"));
+            mDots[i].setText(HtmlCompat.fromHtml("&#8226", HtmlCompat.FROM_HTML_MODE_COMPACT));
             mDots[i].setTextSize(35);
-            mDots[i].setTextColor(getResources().getColor(R.color.textColorLight));
+            mDots[i].setTextColor(ContextCompat.getColor(this ,R.color.textColorLight));
 
             mDotLayout.addView(mDots[i]);
         }
 
         if (mDots.length > 0) {
-            mDots[position].setTextColor(getResources().getColor(R.color.transparentWhite));
+            mDots[position].setTextColor(ContextCompat.getColor(this, R.color.transparentWhite));
         }
     }
 
