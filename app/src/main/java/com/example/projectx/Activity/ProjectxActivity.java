@@ -1,8 +1,13 @@
 package com.example.projectx.Activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
@@ -27,6 +32,9 @@ public class ProjectxActivity extends AppCompatActivity {
     protected StorageReference mStorage;
 
     ProjectxPreferences preferences;
+
+    static int PReqCode = 1;
+    static int REQUESTCODE = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,4 +79,25 @@ public class ProjectxActivity extends AppCompatActivity {
         button.setVisibility(View.VISIBLE);
         bar.setVisibility(View.INVISIBLE);
     }
+
+    //gallery picture logic
+    public void checkAndRequestForPermision(Activity activity) {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showMessage("Permission needed to continue!");
+            } else {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PReqCode);
+            }
+        } else {
+            openGallery();
+        }
+    }
+
+    public void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, REQUESTCODE);
+
+    }
+
 }

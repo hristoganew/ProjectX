@@ -36,8 +36,6 @@ public class RegisterActivity extends ProjectxActivity {
     ProgressBar loadingBar;
     Button registerButton;
 
-    static int PReqCode = 1;
-    static int REQUESTCODE = 1;
     Uri userImageUri;
 
     @Override
@@ -51,45 +49,26 @@ public class RegisterActivity extends ProjectxActivity {
 
     private void initProperties() {
         //user photo
-        userPhoto = (ImageView) findViewById(R.id.user_photo);
+        userPhoto = findViewById(R.id.user_photo);
 
         userPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= 22) {
-                    checkAndRequestForPermision();
+                    checkAndRequestForPermision(RegisterActivity.this);
                 } else {
                     openGallery();
                 }
             }
         });
 
-        name = (EditText) findViewById(R.id.full_name_input);
-        email = (EditText) findViewById(R.id.email_input);
-        password = (EditText) findViewById(R.id.password_input);
-        rePassword = (EditText) findViewById(R.id.password_again_input);
+        name = findViewById(R.id.full_name_input);
+        email = findViewById(R.id.email_input);
+        password = findViewById(R.id.password_input);
+        rePassword = findViewById(R.id.password_again_input);
 
-        registerButton = (Button) findViewById(R.id.register_button);
-        loadingBar = (ProgressBar) findViewById(R.id.register_progress_bar);
-    }
-
-    private void openGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, REQUESTCODE);
-
-    }
-
-    private void checkAndRequestForPermision() {
-        if (ContextCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(RegisterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                showMessage("Permission needed to procede!");
-            } else {
-                ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PReqCode);
-            }
-        } else {
-            openGallery();
-        }
+        registerButton = findViewById(R.id.register_button);
+        loadingBar = findViewById(R.id.register_progress_bar);
     }
 
     @Override

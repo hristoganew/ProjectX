@@ -7,7 +7,7 @@
     android:padding="5dp"
     android:layout_gravity="center">
     <TextView
-        android:id="@+id/closeTextButton"
+        android:id="@+id/close_button_text"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:textColor="@color/white"
@@ -22,11 +22,43 @@
         android:orientation="vertical">
 
         <Spinner
-            android:id="@+id/postTypeDropdown"
+            android:id="@+id/post_dropdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </Spinner>
+
+        <EditText
+            android:id="@+id/post_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/post_photo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_add_a_photo_black_24dp"/>
+
+        <RatingBar
+            android:id="@+id/post_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:numStars="5"
+            android:stepSize=".5"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="?attr/buttonBackground"
+            android:onClick="createPost"
+            android:text="Post"
+            android:textColor="?attr/editTextColor" />
+
 
     </LinearLayout>
 
