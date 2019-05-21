@@ -102,10 +102,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private void showDialog(final User user) {
         myDialog.setContentView(R.layout.user_popup_dialog);
-        txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
-        addFriendButton = (Button) myDialog.findViewById(R.id.add_friend_button);
-        profilePicture = (ImageView) myDialog.findViewById(R.id.profile_picture);
-        profileName = (TextView) myDialog.findViewById(R.id.profile_name);
+        txtclose = myDialog.findViewById(R.id.txtclose);
+        addFriendButton = myDialog.findViewById(R.id.add_friend_button);
+        profilePicture = myDialog.findViewById(R.id.profile_picture);
+        profileName = myDialog.findViewById(R.id.profile_name);
 
         Glide.with(mContext).load(user.getPhoto()).apply(RequestOptions.circleCropTransform()).into(profilePicture);
         profileName.setText(user.getName());

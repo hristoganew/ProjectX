@@ -50,8 +50,8 @@ public class ChatActivity extends ProjectxActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        textMessage = (EditText) findViewById(R.id.text_message);
-        buttonSend = (ImageButton) findViewById(R.id.button_send);
+        textMessage = findViewById(R.id.text_message);
+        buttonSend = findViewById(R.id.button_send);
 
         intent = getIntent();
         userId = intent.getStringExtra("userId");

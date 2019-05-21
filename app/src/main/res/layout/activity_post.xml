@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PostActivity">
+    tools:context=".Activity.PostActivity"
+    android:orientation="vertical"
+    android:background="?attr/appBackground">
 
     <Button
         android:id="@+id/addPostButton"
@@ -18,4 +20,10 @@
         android:layout_marginRight="27dp"
         android:onClick="openPostDialog"
         android:text="Add Post" />
-</RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_margin="20dp"
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

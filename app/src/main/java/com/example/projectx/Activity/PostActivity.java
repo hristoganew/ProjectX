@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,15 +20,22 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.projectx.Adapter.PostAdapter;
 import com.example.projectx.Model.Post;
 import com.example.projectx.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostActivity extends ProjectxActivity {
 
@@ -42,13 +51,23 @@ public class PostActivity extends ProjectxActivity {
     EditText postTitle;
     RatingBar postRating;
 
+    //posts view all
+    private List<Post> mPosts;
+    private PostAdapter postAdapter;
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        initFirebase();
         myDialog = new Dialog(this);
+
+        mPosts = new ArrayList<>();
+        recyclerView = findViewById(R.id.recycler_view);
+
+        initFirebase();
+        getPosts();
     }
 
     public void openPostDialog(View view) {
@@ -138,7 +157,7 @@ public class PostActivity extends ProjectxActivity {
 
     public void createPost(View view){
         final FirebaseUser user = mAuth.getCurrentUser();
-        final DatabaseReference usersTable = mDatabase.child("posts");
+        final DatabaseReference postsTable = mDatabase.child("posts");
 
         StorageReference postPhotosStorage = mStorage.child("post_photos");
         final StorageReference imageFilePath = postPhotosStorage.child(postPhotoUri.getLastPathSegment());
@@ -153,9 +172,10 @@ public class PostActivity extends ProjectxActivity {
                             public void onSuccess(Uri uri) {
                                 final String imageLink = uri.toString();
 
-                                Post newPost = new Post(user.getUid(), postTitle.getText().toString(), postRating.getRating(), imageLink);
+                                Number rating = postRating.getRating();
+                                Post newPost = new Post(user.getUid(), postTitle.getText().toString(), rating.toString(), imageLink);
 
-                                usersTable.child(user.getUid()).setValue(newPost).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                postsTable.push().setValue(newPost).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
@@ -173,5 +193,33 @@ public class PostActivity extends ProjectxActivity {
                 });
 
 
+    }
+
+    private void getPosts(){
+        DatabaseReference posts = mDatabase.child("posts");
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Post post = snapshot.getValue(Post.class);
+
+                    mPosts.add(post);
+                }
+                initPostsList();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        posts.addValueEventListener(postListener);
+    }
+
+    private void initPostsList(){
+        postAdapter = new PostAdapter(this, mPosts);
+        recyclerView.setAdapter(postAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

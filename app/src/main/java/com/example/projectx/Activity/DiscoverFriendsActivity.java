@@ -20,9 +20,7 @@ import java.util.List;
 public class DiscoverFriendsActivity extends ProjectxActivity {
 
     private List<User> mUsers;
-
     private UserAdapter userAdapter;
-
     private RecyclerView recyclerView;
 
     @Override
@@ -31,7 +29,7 @@ public class DiscoverFriendsActivity extends ProjectxActivity {
         setContentView(R.layout.activity_discover_friends);
 
         mUsers = new ArrayList<>();
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
 
         initFirebase();
         getUsers();
