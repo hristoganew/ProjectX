@@ -37,6 +37,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private Context mContext;
     private List<Post> mPosts;
 
+    private int postTypeDrawable;
+
+
     public PostAdapter(Context mContext, List<Post> mPosts) {
         this.mContext = mContext;
         this.mPosts = mPosts;
@@ -59,6 +62,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         viewHolder.title.setText(post.getTitle());
         viewHolder.rating.setText(post.getRating());
         Glide.with(mContext).load(post.getPhoto()).into(viewHolder.image);
+        switch (post.getType()) {
+            case "Text":
+                postTypeDrawable = R.drawable.ic_text_format_black_24dp;
+                break;
+            case "Food":
+                postTypeDrawable = R.drawable.ic_restaurant_black_24dp;
+                break;
+            case "Location":
+                postTypeDrawable = R.drawable.ic_location_on_black_24dp;
+                break;
+            default:
+                postTypeDrawable = R.drawable.ic_text_format_black_24dp;
+                break;
+        }
+
+        viewHolder.postTypeImage.setBackgroundResource(postTypeDrawable);
+
 
         //user picture
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -74,10 +94,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             }
         });
-
-
-
-
 
 
 //        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -103,8 +119,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView title, rating;
-        public ImageView image;
-        public ImageView userImage;
+        public ImageView image, userImage, postTypeImage;
 //        public CardView cardView;
 
         public ViewHolder(View itemView) {
@@ -114,6 +129,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             rating = itemView.findViewById(R.id.row_post_rating);
             image = itemView.findViewById(R.id.row_post_img);
             userImage = itemView.findViewById(R.id.row_post_profile_img);
+            postTypeImage = itemView.findViewById(R.id.row_post_type_image);
 //            cardView = itemView.findViewById(R.id.card_view);
         }
     }

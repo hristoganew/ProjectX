@@ -6,16 +6,18 @@ public class Post {
     private String title;
     private String photo;
     private String rating;
+    private String type;
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Post(String userId, String title, String rating, String photo) {
+    public Post(String userId, String title, String rating, String photo, String type) {
         this.userId = userId;
         this.title = title;
         this.photo = photo;
         this.rating = rating;
+        this.type = type;
     }
 
     public String getUserId() {
@@ -48,5 +50,13 @@ public class Post {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

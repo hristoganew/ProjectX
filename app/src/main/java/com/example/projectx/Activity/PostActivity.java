@@ -43,7 +43,7 @@ public class PostActivity extends ProjectxActivity {
     TextView closeTextButton;
     Spinner postTypeDropdown;
 
-    String [] postTypes = new String[]{"Text", "Photo", "Location"};
+    String [] postTypes = new String[]{"Text", "Food", "Location"};
 
     //post photo
     Uri postPhotoUri;
@@ -173,7 +173,8 @@ public class PostActivity extends ProjectxActivity {
                                 final String imageLink = uri.toString();
 
                                 Number rating = postRating.getRating();
-                                Post newPost = new Post(user.getUid(), postTitle.getText().toString(), rating.toString(), imageLink);
+
+                                Post newPost = new Post(user.getUid(), postTitle.getText().toString(), rating.toString(), imageLink, postTypeDropdown.getSelectedItem().toString());
 
                                 postsTable.push().setValue(newPost).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
