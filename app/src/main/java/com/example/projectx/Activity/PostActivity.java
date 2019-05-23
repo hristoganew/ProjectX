@@ -189,7 +189,7 @@ public class PostActivity extends ProjectxActivity {
                                     }
                                 });
 
-                                updateUI(LoginActivity.class);
+                                myDialog.dismiss();
                             }
                         });
                     }

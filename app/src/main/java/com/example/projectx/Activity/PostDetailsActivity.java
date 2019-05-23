@@ -159,8 +159,5 @@ public class PostDetailsActivity extends ProjectxActivity {
             }
         });
 
-
-
-
     }
 }

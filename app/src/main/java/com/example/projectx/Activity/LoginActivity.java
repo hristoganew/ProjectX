@@ -29,10 +29,10 @@ public class LoginActivity extends ProjectxActivity {
     }
 
     private void initProperties() {
-        email = (EditText) findViewById(R.id.email_input);
-        password = (EditText) findViewById(R.id.password_input);
-        loadingButton = (Button) findViewById(R.id.login_button);
-        loadingBar = (ProgressBar) findViewById(R.id.login_progress_bar);
+        email = findViewById(R.id.email_input);
+        password = findViewById(R.id.password_input);
+        loadingButton = findViewById(R.id.login_button);
+        loadingBar = findViewById(R.id.login_progress_bar);
     }
 
     public void login(View view) {

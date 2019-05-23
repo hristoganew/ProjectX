@@ -17,7 +17,6 @@ public class HomeActivity extends ProjectxActivity {
 
     ImageView profilePicture;
     TextView profileName;
-    Switch darkModeSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,26 +28,8 @@ public class HomeActivity extends ProjectxActivity {
     }
 
     private void initProperties() {
-        profilePicture = (ImageView) findViewById(R.id.profile_picture);
-        profileName = (TextView) findViewById(R.id.profile_name);
-        darkModeSwitch = (Switch) findViewById(R.id.dark_mode_switch);
-        if (preferences.loadDarkTheme() == true) {
-            darkModeSwitch.setChecked(true);
-        }
-
-        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    preferences.setDarkThemeState(true);
-                    updateUIAndFinish(HomeActivity.class);
-                } else {
-                    preferences.setDarkThemeState(false);
-                    updateUIAndFinish(HomeActivity.class);
-                }
-            }
-        });
-
+        profilePicture = findViewById(R.id.profile_picture);
+        profileName = findViewById(R.id.profile_name);
 
         if (currentUser != null) {
             profileName.setText(currentUser.getDisplayName());

@@ -3,16 +3,11 @@ package com.example.projectx.Adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,10 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
-
-    Button addFriendButton;
-    ImageView profilePicture;
-    TextView profileName, txtclose;
 
     Dialog myDialog;
     private Context mContext;
@@ -114,20 +105,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-
-//        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (friendsListView == true){
-//                    Intent activity = new Intent(mContext, ChatActivity.class);
-//                    activity.putExtra("userId", user.getId());
-//                    mContext.startActivity(activity);
-//                }else{
-//                    showDialog(user);
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -139,7 +116,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         public TextView title, rating;
         public ImageView image, userImage, postTypeImage;
-//        public CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -149,36 +125,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             image = itemView.findViewById(R.id.row_post_img);
             userImage = itemView.findViewById(R.id.row_post_profile_img);
             postTypeImage = itemView.findViewById(R.id.row_post_type_image);
-//            cardView = itemView.findViewById(R.id.card_view);
         }
-    }
-
-    private void showDialog(final User user) {
-        myDialog.setContentView(R.layout.user_popup_dialog);
-        txtclose = myDialog.findViewById(R.id.txtclose);
-        addFriendButton = myDialog.findViewById(R.id.add_friend_button);
-        profilePicture = myDialog.findViewById(R.id.profile_picture);
-        profileName = myDialog.findViewById(R.id.profile_name);
-
-        Glide.with(mContext).load(user.getPhoto()).into(profilePicture);
-        profileName.setText(user.getName());
-
-        addFriendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        txtclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
-
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
     }
 
 }

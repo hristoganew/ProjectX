@@ -47,7 +47,7 @@ public class IntroAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
-        return view == (RelativeLayout) o;
+        return view == o;
     }
 
     @NonNull
@@ -56,9 +56,9 @@ public class IntroAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.intro_item, container, false);
 
-        ImageView image = (ImageView) view.findViewById(R.id.image);
-        TextView heading = (TextView) view.findViewById(R.id.heading);
-        TextView description = (TextView) view.findViewById(R.id.description);
+        ImageView image = view.findViewById(R.id.image);
+        TextView heading = view.findViewById(R.id.heading);
+        TextView description = view.findViewById(R.id.description);
 
         image.setImageResource(images[position]);
         heading.setText(headings[position]);

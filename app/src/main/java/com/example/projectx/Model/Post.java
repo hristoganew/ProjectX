@@ -4,13 +4,7 @@ import com.google.firebase.database.ServerValue;
 
 public class Post {
 
-    private String id;
-    private String userId;
-    private String title;
-    private String photo;
-    private String rating;
-    private String type;
-    private String description;
+    private String id, userId, title, photo, rating, type, description;
     private Object date;
 
     public Post() {
