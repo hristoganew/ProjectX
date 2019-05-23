@@ -4,21 +4,30 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.projectx.Adapter.CommentAdapter;
+import com.example.projectx.Model.Comment;
 import com.example.projectx.Model.Post;
 import com.example.projectx.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class PostDetailsActivity extends ProjectxActivity {
@@ -28,6 +37,11 @@ public class PostDetailsActivity extends ProjectxActivity {
     ImageView postImage, currentUserImage, postUserImage;
     TextView postTitle, postDateName, postDescription;
     EditText postComment;
+
+    RecyclerView RvComment;
+    CommentAdapter commentAdapter;
+    List<Comment> listComment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +60,12 @@ public class PostDetailsActivity extends ProjectxActivity {
         currentUserImage = findViewById(R.id.post_detail_currentuser_img);
         postComment = findViewById(R.id.post_detail_comment);
         postUserImage = findViewById(R.id.post_detail_user_img);
+        RvComment = findViewById(R.id.rv_comment);
 
 
         initFirebase();
         getPost();
+        iniRvComment();
     }
 
     private void getPost() {
@@ -90,5 +106,61 @@ public class PostDetailsActivity extends ProjectxActivity {
         calendar.setTimeInMillis(time);
         String date = DateFormat.format("dd-MM-yyyy",calendar).toString();
         return date;
+    }
+
+    public void addComment(View view){
+        DatabaseReference commentReference = mDatabase.child("comment").child(postId).push();
+
+        String commentText = postComment.getText().toString();
+        String uid = currentUser.getUid();
+        String uname = currentUser.getDisplayName();
+        String uimg = currentUser.getPhotoUrl().toString();
+
+        Comment comment = new Comment(commentText,uid,uimg,uname);
+
+        commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                showMessage("Comment added!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                showMessage("Failed to add the comment : " + e.getMessage());
+            }
+        });
+    }
+
+    private void iniRvComment() {
+
+        RvComment.setLayoutManager(new LinearLayoutManager(this));
+
+        DatabaseReference commentRef = mDatabase.child("comment").child(postId);
+        commentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listComment = new ArrayList<>();
+                for (DataSnapshot snap:dataSnapshot.getChildren()) {
+
+                    Comment comment = snap.getValue(Comment.class);
+                    listComment.add(comment) ;
+
+                }
+
+                commentAdapter = new CommentAdapter(getApplicationContext(),listComment);
+                RvComment.setAdapter(commentAdapter);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
     }
 }
