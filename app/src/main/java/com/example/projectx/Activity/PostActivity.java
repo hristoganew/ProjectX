@@ -48,7 +48,7 @@ public class PostActivity extends ProjectxActivity {
     //post photo
     Uri postPhotoUri;
     ImageView postPhoto;
-    EditText postTitle;
+    EditText postTitle, postDescription;
     RatingBar postRating;
 
     //posts view all
@@ -104,6 +104,7 @@ public class PostActivity extends ProjectxActivity {
         postPhoto = myDialog.findViewById(R.id.post_photo);
         postTypeDropdown = myDialog.findViewById(R.id.post_dropdown);
         postTitle = myDialog.findViewById(R.id.post_title);
+        postDescription = myDialog.findViewById(R.id.post_description);
         closeTextButton = myDialog.findViewById(R.id.close_button_text);
     }
 
@@ -174,9 +175,10 @@ public class PostActivity extends ProjectxActivity {
 
                                 Number rating = postRating.getRating();
 
-                                Post newPost = new Post(user.getUid(), postTitle.getText().toString(), rating.toString(), imageLink, postTypeDropdown.getSelectedItem().toString());
+                                DatabaseReference key = postsTable.push();
+                                Post newPost = new Post(key.getKey(), user.getUid(), postTitle.getText().toString(), rating.toString(), imageLink, postTypeDropdown.getSelectedItem().toString(), postDescription.getText().toString());
 
-                                postsTable.push().setValue(newPost).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                key.setValue(newPost).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {

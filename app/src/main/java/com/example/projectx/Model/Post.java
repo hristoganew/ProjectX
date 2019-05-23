@@ -1,23 +1,39 @@
 package com.example.projectx.Model;
 
+import com.google.firebase.database.ServerValue;
+
 public class Post {
 
+    private String id;
     private String userId;
     private String title;
     private String photo;
     private String rating;
     private String type;
+    private String description;
+    private Object date;
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Post(String userId, String title, String rating, String photo, String type) {
+    public Post(String id, String userId, String title, String rating, String photo, String type, String description) {
+        this.id = id;
         this.userId = userId;
         this.title = title;
         this.photo = photo;
         this.rating = rating;
         this.type = type;
+        this.description = description;
+        this.date = ServerValue.TIMESTAMP;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserId() {
@@ -58,5 +74,21 @@ public class Post {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Object getDate() {
+        return date;
+    }
+
+    public void setDate(Object date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

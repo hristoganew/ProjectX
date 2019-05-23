@@ -2,9 +2,12 @@ package com.example.projectx.Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.projectx.Activity.PostDetailsActivity;
 import com.example.projectx.Model.Post;
 import com.example.projectx.R;
 
@@ -38,6 +42,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private List<Post> mPosts;
 
     private int postTypeDrawable;
+    private String postUserImage, postUserName;
 
 
     public PostAdapter(Context mContext, List<Post> mPosts) {
@@ -79,19 +84,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         viewHolder.postTypeImage.setBackgroundResource(postTypeDrawable);
 
-
         //user picture
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference profileUri = mDatabase.child("users").child(post.getUserId()).child("photo");
+        DatabaseReference profileUri = mDatabase.child("users").child(post.getUserId());
         profileUri.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Glide.with(mContext).load(dataSnapshot.getValue(String.class)).apply(RequestOptions.circleCropTransform()).into(viewHolder.userImage);
+                User user = dataSnapshot.getValue(User.class);
+                postUserName = user.getName();
+                postUserImage = user.getPhoto();
+                Glide.with(mContext).load(postUserImage).apply(RequestOptions.circleCropTransform()).into(viewHolder.userImage);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent activity = new Intent(mContext, PostDetailsActivity.class);
+                activity.putExtra("postId", post.getId());
+                activity.putExtra("postUserImage", postUserImage);
+                activity.putExtra("postUserName", postUserName);
+
+                mContext.startActivity(activity);
             }
         });
 

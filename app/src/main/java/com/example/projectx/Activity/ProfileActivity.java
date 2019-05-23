@@ -24,10 +24,10 @@ public class ProfileActivity extends ProjectxActivity {
     }
 
     private void initProperties(){
-        profilePicture = (ImageView) findViewById(R.id.profile_picture);
-        profileName = (TextView) findViewById(R.id.profile_name);
-        email = (TextView) findViewById(R.id.email_address);
-        phone = (TextView) findViewById(R.id.phone);
+        profilePicture = findViewById(R.id.profile_picture);
+        profileName = findViewById(R.id.profile_name);
+        email = findViewById(R.id.email_address);
+        phone = findViewById(R.id.phone);
 
         Glide.with(this).load(currentUser.getPhotoUrl()).into(profilePicture);
         profileName.setText(currentUser.getDisplayName());

@@ -30,7 +30,7 @@ public class MessagingActivity extends ProjectxActivity {
         setContentView(R.layout.activity_messaging);
 
         mUsers = new ArrayList<>();
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
 
         initFirebase();
         getUsers();
