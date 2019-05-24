@@ -43,7 +43,10 @@ public class DiscoverFriendsActivity extends ProjectxActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
 
-                    mUsers.add(user);
+                    // add all users except the current one
+                    if (!user.getId().equals(currentUser.getUid())){
+                        mUsers.add(user);
+                    }
                 }
                 initUsersList();
             }

@@ -6,6 +6,9 @@ import com.example.projectx.Model.Chat;
 import com.example.projectx.Model.Comment;
 import com.example.projectx.Model.Post;
 import com.example.projectx.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,16 +19,23 @@ import com.google.firebase.database.ValueEventListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
 public class ProfileActivity extends ProjectxActivity {
 
     ImageView profilePicture;
-    TextView profileName, email, phone, friendCounter, postCounter, commentsCounter;
+    TextView profileName, friendCounter, postCounter, commentsCounter;
+    EditText email, name;
     Switch darkModeSwitch;
+    Button updateProfileButton;
+    ProgressBar loadingProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +54,20 @@ public class ProfileActivity extends ProjectxActivity {
     private void initProperties(){
         profilePicture = findViewById(R.id.profile_picture);
         profileName = findViewById(R.id.profile_name);
-        email = findViewById(R.id.email_address);
-        phone = findViewById(R.id.phone);
+        email = findViewById(R.id.profile_email_input);
+        name = findViewById(R.id.profile_name_input);
         friendCounter = findViewById(R.id.friend_counter);
         postCounter = findViewById(R.id.posts_counter);
         commentsCounter = findViewById(R.id.comments_counter);
+        updateProfileButton = findViewById(R.id.update_profile_button);
+        loadingProgress = findViewById(R.id.loading_progress);
 
         Glide.with(this).load(currentUser.getPhotoUrl()).into(profilePicture);
-        profileName.setText(currentUser.getDisplayName());
+
+        String profileNameText = currentUser.getDisplayName();
+        profileName.setText(profileNameText);
+
+        name.setText(profileNameText);
         email.setText(currentUser.getEmail());
     }
 
@@ -155,6 +171,28 @@ public class ProfileActivity extends ProjectxActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    public void updateProfile(View view){
+        showLoading(updateProfileButton, loadingProgress);
+        currentUser.updateEmail(email.getText().toString());
+
+        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name.getText().toString())
+                .build();
+
+        currentUser.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    showMessage("Profile Updated");
+                    stopLoading(updateProfileButton, loadingProgress);
+                }else{
+                    showMessage("Error");
+                    stopLoading(updateProfileButton, loadingProgress);
+                }
             }
         });
     }

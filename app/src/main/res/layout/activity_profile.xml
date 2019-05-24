@@ -113,81 +113,67 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_gravity="center"
-        >
+        android:layout_gravity="center" >
 
-        <LinearLayout
+        <Switch
+            android:text="Night Mode"
+            android:id="@+id/dark_mode_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/appBackground"
-            android:padding="10dp">
-            <Switch
-                android:text="Night Mode"
-                android:id="@+id/dark_mode_switch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="?attr/textColor"/>
-        </LinearLayout>
+            android:textColor="?attr/textColor"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <EditText
+            android:hint="Profile Name"
+            android:id="@+id/profile_name_input"
+            android:textColor="?attr/textColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="100dp">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_message_black_24dp"
-                android:background="@drawable/button_style"
-                android:padding="5dp"/>
-            <TextView
-                android:id="@+id/email_address"
+            android:background="@drawable/edit_text_style"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="30dp"/>
+
+        <EditText
+            android:hint="Profile Email"
+            android:id="@+id/profile_email_input"
+            android:textColor="?attr/textColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_style"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <ProgressBar
+                android:id="@+id/loading_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email Address"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textStyle="bold"
-                android:textColor="?attr/textColor"/>
-        </LinearLayout>
+                android:layout_alignTop="@+id/update_profile_button"
+                android:layout_centerHorizontal="true" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="100dp">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_message_black_24dp"
-                android:background="@drawable/button_style"
-                android:padding="5dp"/>
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/update_profile_button"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="012 321 3123"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:textStyle="bold"
-                android:textColor="?attr/textColor"/>
-        </LinearLayout>
+                android:layout_centerInParent="true"
 
-        <Button
-
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/button_style"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:textColor="#FFF"
-            android:text="Update Profile"/>
+                android:layout_gravity="center"
+                android:background="@drawable/button_style"
+                android:onClick="updateProfile"
+                android:text="Update Profile"
+                android:textColor="#FFF" />
+        </RelativeLayout>
 
     </LinearLayout>
 
