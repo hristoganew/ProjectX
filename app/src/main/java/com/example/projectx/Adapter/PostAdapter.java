@@ -82,9 +82,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                postUserName = user.getName();
-                postUserImage = user.getPhoto();
-                Glide.with(mContext).load(postUserImage).apply(RequestOptions.circleCropTransform()).into(viewHolder.userImage);
+                if (user != null){
+                    postUserName = user.getName();
+                    postUserImage = user.getPhoto();
+                    Glide.with(mContext).load(postUserImage).apply(RequestOptions.circleCropTransform()).into(viewHolder.userImage);
+                }
             }
 
             @Override

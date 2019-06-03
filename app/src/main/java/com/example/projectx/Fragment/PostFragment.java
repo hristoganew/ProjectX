@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.projectx.Activity.PostAddActivity;
 import com.example.projectx.Adapter.PostAdapter;
@@ -33,6 +33,7 @@ public class PostFragment extends ProjectXFragment {
     private RecyclerView recyclerView;
 
     FloatingActionButton addPostButton;
+    TextView empty;
 
     public PostFragment() {
     }
@@ -53,6 +54,8 @@ public class PostFragment extends ProjectXFragment {
                 startActivity(activity);
             }
         });
+
+        empty = view.findViewById(R.id.empty);
 
         initFirebase();
         getPosts();
@@ -85,9 +88,16 @@ public class PostFragment extends ProjectXFragment {
     }
 
     private void initPostsList(){
-        postAdapter = new PostAdapter(getContext(), mPosts);
-        recyclerView.setAdapter(postAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (mPosts.isEmpty()){
+            empty.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        }else{
+            postAdapter = new PostAdapter(getContext(), mPosts);
+            recyclerView.setAdapter(postAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            empty.setVisibility(View.INVISIBLE);
+        }
     }
 
 }
