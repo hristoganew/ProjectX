@@ -1,6 +1,8 @@
 package com.example.projectx.Activity;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -10,6 +12,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.projectx.Adapter.ViewPagerAdapter;
+import com.example.projectx.Fragment.DiscoverFriendsFragment;
+import com.example.projectx.Fragment.MessageUsersFragment;
+import com.example.projectx.Fragment.PostFragment;
 import com.example.projectx.R;
 
 
@@ -18,13 +24,29 @@ public class HomeActivity extends ProjectxActivity {
     ImageView profilePicture;
     TextView profileName;
 
+    private TabLayout tablayout;
+    private ViewPager viewPager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home_v2);
+
+        tablayout = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.viewpager);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new DiscoverFriendsFragment(), "Find a Friend");
+        adapter.addFragment(new PostFragment(), "Posts");
+        adapter.addFragment(new MessageUsersFragment(), "Messages");
+        viewPager.setAdapter(adapter);
+        tablayout.setupWithViewPager(viewPager);
 
         initFirebase();
         initProperties();
+
+        viewPager.setAdapter(adapter);
+        tablayout.setupWithViewPager(viewPager);
     }
 
     private void initProperties() {
