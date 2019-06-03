@@ -3,11 +3,8 @@ package com.example.projectx.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,7 +24,6 @@ public class HomeActivity extends ProjectxActivity {
     private TabLayout tablayout;
     private ViewPager viewPager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +35,7 @@ public class HomeActivity extends ProjectxActivity {
         adapter.addFragment(new DiscoverFriendsFragment(), "Find a Friend");
         adapter.addFragment(new PostFragment(), "Posts");
         adapter.addFragment(new MessageUsersFragment(), "Messages");
+        viewPager.setCurrentItem(1);
         viewPager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewPager);
 
