@@ -35,15 +35,13 @@ public class HomeActivity extends ProjectxActivity {
         adapter.addFragment(new DiscoverFriendsFragment(), "Find a Friend");
         adapter.addFragment(new PostFragment(), "Posts");
         adapter.addFragment(new MessageUsersFragment(), "Messages");
-        viewPager.setCurrentItem(1);
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(1, false);
         tablayout.setupWithViewPager(viewPager);
+
 
         initFirebase();
         initProperties();
-
-        viewPager.setAdapter(adapter);
-        tablayout.setupWithViewPager(viewPager);
     }
 
     private void initProperties() {
