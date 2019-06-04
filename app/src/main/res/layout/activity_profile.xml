@@ -54,14 +54,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Friends"
+                        android:text="Follows"
                         android:textSize="20sp"
                         android:textColor="?attr/textColor"/>
                     <TextView
                         android:id="@+id/friend_counter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="123"
+                        android:text="0"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:textColor="?attr/buttonBackground"/>

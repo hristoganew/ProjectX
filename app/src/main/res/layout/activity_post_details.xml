@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.PostDetailsActivity"
-    android:background="#fff">
+    android:background="?attr/appBackground">
 
 
 
@@ -37,7 +37,7 @@
             android:layout_marginRight="16dp"
             android:lineSpacingExtra="4dp"
             android:text="TextView"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/textColor"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
             app:layout_constraintTop_toBottomOf="@+id/post_detail_img" />
 
         <View
-            android:background="#2e2e2e"
+            android:background="?attr/textColor"
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -60,6 +60,7 @@
             app:layout_constraintTop_toBottomOf="@+id/post_detail_title" />
 
         <TextView
+            android:textColor="?attr/textColor"
             android:textSize="12sp"
             android:id="@+id/post_detail_date_name"
             android:layout_width="wrap_content"
@@ -77,8 +78,7 @@
             tools:text="18 jan 2018 | by Arun Larrson " />
 
         <TextView
-
-            android:textColor="#373737"
+            android:textColor="?attr/textColor"
             android:lineSpacingExtra="8dp"
             android:id="@+id/post_detail_desc"
             android:layout_width="0dp"
@@ -107,6 +107,7 @@
         <!--android:background="@drawable/edittext_button_style_rounded"-->
         <EditText
 
+            android:textColor="?attr/textColor"
             android:hint="Write Comment"
             android:id="@+id/post_detail_comment"
             android:layout_width="wrap_content"

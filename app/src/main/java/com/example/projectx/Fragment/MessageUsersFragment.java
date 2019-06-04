@@ -79,7 +79,7 @@ public class MessageUsersFragment extends ProjectXFragment {
             empty.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
         } else {
-            userAdapter = new UserAdapter(getContext(), mUsers, false);
+            userAdapter = new UserAdapter(getContext(), mUsers, true);
             recyclerView.setAdapter(userAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

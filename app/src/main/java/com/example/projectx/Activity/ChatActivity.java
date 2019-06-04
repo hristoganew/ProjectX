@@ -8,7 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.projectx.Adapter.MessageAdapter;
 import com.example.projectx.Model.Chat;
 import com.example.projectx.Model.User;
@@ -37,7 +41,8 @@ public class ChatActivity extends ProjectxActivity {
 
     String userId;
     Intent intent;
-
+    ImageView sendUserImage;
+    TextView sendUserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,8 @@ public class ChatActivity extends ProjectxActivity {
 
         textMessage = findViewById(R.id.text_message);
         buttonSend = findViewById(R.id.button_send);
+        sendUserImage = findViewById(R.id.send_user_image);
+        sendUserName = findViewById(R.id.send_user_name);
 
         intent = getIntent();
         userId = intent.getStringExtra("userId");
@@ -76,6 +83,9 @@ public class ChatActivity extends ProjectxActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+
+                Glide.with(getApplicationContext()).load(user.getPhoto()).apply(RequestOptions.circleCropTransform()).into(sendUserImage);
+                sendUserName.setText(user.getName());
 
                 readMessages(currentUser.getUid(), userId, user.getPhoto());
             }
