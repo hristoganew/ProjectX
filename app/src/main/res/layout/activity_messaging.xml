@@ -8,10 +8,11 @@
     android:background="?attr/appBackground">
 
     <TextView
+        android:textColor="?attr/textColor"
         android:id="@+id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No new friends. Add some people to your friend list!"
+        android:text="No new friends. Follow someone to message him!"
         android:textStyle="bold"
         android:layout_margin="20dp"/>
 

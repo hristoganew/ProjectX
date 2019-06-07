@@ -3,50 +3,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.PostAddActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?attr/appBackground">
 
-    <Spinner
-        android:id="@+id/post_dropdown"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/register_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </Spinner>
-
-    <EditText
-        android:id="@+id/post_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/post_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ImageView
-        android:id="@+id/post_photo"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/ic_add_a_photo_black_24dp"/>
-
-    <RatingBar
-        android:id="@+id/post_rating"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:numStars="5"
-        android:stepSize=".5"
-        android:layout_gravity="center"/>
+        android:background="?attr/appBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Create a post"
+        app:titleTextColor="?attr/textColor"></android.support.v7.widget.Toolbar>
 
-    <Button
-        android:id="@+id/post_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="?attr/buttonBackground"
-        android:onClick="createPost"
-        android:text="Post"
-        android:textColor="?attr/editTextColor" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="30dp">
+
+        <EditText
+            android:textColor="?attr/textColor"
+            android:id="@+id/post_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title"/>
+
+        <EditText
+            android:textColor="?attr/textColor"
+            android:id="@+id/post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:background="?attr/cardBackground">
+            <TextView
+                android:textColor="?attr/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Choose a post type -       "
+                android:gravity="center_vertical"
+                android:textSize="16sp"/>
+            <Spinner
+                android:id="@+id/post_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Spinner>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/post_photo"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_add_a_photo_black_24dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:textColor="?attr/textColor"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select a rating"/>
+
+            <RatingBar
+                android:id="@+id/post_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize=".5"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="?attr/buttonBackground"
+            android:onClick="createPost"
+            android:text="Submit Post"
+            android:padding="10dp"
+            android:textColor="#fff" />
+    </LinearLayout>
 
 </LinearLayout>

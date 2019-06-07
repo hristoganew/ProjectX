@@ -29,7 +29,7 @@ public class MessageUsersFragment extends ProjectXFragment {
 
     private TextView empty;
 
-    public MessageUsersFragment(){
+    public MessageUsersFragment() {
 
     }
 
@@ -48,20 +48,33 @@ public class MessageUsersFragment extends ProjectXFragment {
 
     }
 
-    private void getUsers(){
-        DatabaseReference users = mDatabase.child("users");
+    private void getUsers() {
+        DatabaseReference users = mDatabase.child("users").child(currentUser.getUid()).child("friends");
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    // add all users except the current one
-                    if (!user.getId().equals(currentUser.getUid())){
-                        mUsers.add(user);
-                    }
+                    DatabaseReference user = mDatabase.child("users").child(snapshot.getValue().toString());
+                    user.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+
+                            // add all users except the current one
+                            if (!user.getId().equals(currentUser.getUid())){
+                                mUsers.add(user);
+                            }
+                            initUsersList();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
-                initUsersList();
             }
 
             @Override
@@ -74,7 +87,7 @@ public class MessageUsersFragment extends ProjectXFragment {
 
     }
 
-    private void initUsersList(){
+    private void initUsersList() {
         if (mUsers.isEmpty()) {
             empty.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
@@ -85,7 +98,6 @@ public class MessageUsersFragment extends ProjectXFragment {
 
             empty.setVisibility(View.INVISIBLE);
         }
-
 
 
     }

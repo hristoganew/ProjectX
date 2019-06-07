@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#f4f4f4"
+    android:background="#CE4646"
     android:paddingTop="8dp">
 
     <ImageView
@@ -20,7 +20,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:textColor="#969595"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:id="@+id/comment_username"
         android:layout_width="wrap_content"
@@ -43,13 +43,14 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="Text Comment Goes Here"
-        android:textColor="#969595"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/comment_user_img"
         app:layout_constraintTop_toBottomOf="@+id/comment_username" />
 
     <TextView
+        android:textColor="#fff"
         android:textSize="12sp"
         android:id="@+id/comment_date"
         android:layout_width="wrap_content"

@@ -70,10 +70,32 @@ public class PostFragment extends ProjectXFragment {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Post post = snapshot.getValue(Post.class);
+                mPosts.clear();
 
-                    mPosts.add(post);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    final Post post = snapshot.getValue(Post.class);
+
+                    if (currentUser.getUid().equals(post.getUserId())) {
+                        mPosts.add(post);
+                    }else{
+                        DatabaseReference currentUserFriends = mDatabase.child("users").child(currentUser.getUid()).child("friends");
+                        currentUserFriends.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                    if (post.getUserId().equals(snapshot.getValue())){
+                                        mPosts.add(post);
+                                    }
+                                }
+                                initPostsList();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                 }
                 initPostsList();
             }

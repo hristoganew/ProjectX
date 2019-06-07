@@ -43,7 +43,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     Button addFriendButton;
     ProgressBar loadingBar;
     ImageView profilePicture;
-    TextView profileName, txtclose, friendCounter, postCounter, commentsCounter;
+    TextView profileName, txtclose, friendCounter, postCounter, commentsCounter, alreadyFollowedMessage;
     DatabaseReference mDatabase;
 
     Dialog myDialog;
@@ -124,7 +124,30 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         postCounter = myDialog.findViewById(R.id.posts_counter);
         commentsCounter = myDialog.findViewById(R.id.comments_counter);
 
+        alreadyFollowedMessage = myDialog.findViewById(R.id.already_followed);
+        alreadyFollowedMessage.setVisibility(View.INVISIBLE);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId).child("friends");
+
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    if (user.getId().equals(snapshot.getValue())){
+                        alreadyFollowedMessage.setVisibility(View.VISIBLE);
+                        addFriendButton.setVisibility(View.INVISIBLE);
+                        loadingBar.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         getFriendsCount(user.getId());
         getPostsCount(user.getId());
@@ -163,6 +186,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    alreadyFollowedMessage.setVisibility(View.VISIBLE);
                     Toast.makeText(mContext, "You've added a new friend successfully!", Toast.LENGTH_LONG).show();
                     loadingBar.setVisibility(View.INVISIBLE);
                 }else{
