@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.projectx.Activity.ChatActivity;
+import com.example.projectx.Model.Chat;
 import com.example.projectx.Model.Comment;
 import com.example.projectx.Model.Post;
 import com.example.projectx.R;
@@ -29,6 +30,7 @@ import com.example.projectx.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,13 +70,36 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final User user = mUsers.get(i);
         final Boolean friendsListView = this.friendsList;
-
         viewHolder.name.setText(user.getName());
 
         Glide.with(mContext).load(user.getPhoto()).apply(RequestOptions.circleCropTransform()).into(viewHolder.image);
+
+        if (friendsListView == true){
+
+            final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference chats = mDatabase.child("Chats");
+            chats.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        Chat chat = snapshot.getValue(Chat.class);
+                        if (chat.getReceiver().equals(currentUser.getUid()) && chat.getSender().equals(user.getId()) || chat.getReceiver().equals(user.getId()) && chat.getSender().equals(currentUser.getUid())){
+                            viewHolder.lastMessage.setText(chat.getMessage());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +124,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView name;
+        public TextView name, lastMessage;
         public ImageView image;
         public CardView cardView;
 
@@ -109,6 +134,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             name = itemView.findViewById(R.id.name_text);
             image = itemView.findViewById(R.id.profile_image);
             cardView = itemView.findViewById(R.id.card_view);
+            lastMessage = itemView.findViewById(R.id.last_message);
         }
     }
 
