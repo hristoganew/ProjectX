@@ -53,6 +53,7 @@ public class ChatActivity extends ProjectxActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         textMessage = findViewById(R.id.text_message);
@@ -62,7 +63,6 @@ public class ChatActivity extends ProjectxActivity {
 
         intent = getIntent();
         userId = intent.getStringExtra("userId");
-
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
