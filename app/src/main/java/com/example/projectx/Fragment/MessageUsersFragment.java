@@ -53,6 +53,7 @@ public class MessageUsersFragment extends ProjectXFragment {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUsers.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     DatabaseReference user = mDatabase.child("users").child(snapshot.getValue().toString());

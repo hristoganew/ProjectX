@@ -2,9 +2,11 @@ package com.example.projectx.Activity;
 
 import com.bumptech.glide.Glide;
 import com.example.projectx.Adapter.MessageAdapter;
+import com.example.projectx.Adapter.UserAdapter;
 import com.example.projectx.Model.Chat;
 import com.example.projectx.Model.Comment;
 import com.example.projectx.Model.Post;
+import com.example.projectx.Model.User;
 import com.example.projectx.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,9 +18,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,6 +37,9 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProfileActivity extends ProjectxActivity {
 
     ImageView profilePicture;
@@ -38,6 +48,12 @@ public class ProfileActivity extends ProjectxActivity {
     Switch darkModeSwitch;
     Button updateProfileButton;
     ProgressBar loadingProgress;
+    Dialog myDialog;
+    TextView txtclose, empty;
+
+    private List<User> mUsers;
+    private UserAdapter userAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +70,9 @@ public class ProfileActivity extends ProjectxActivity {
         getFriendsCount();
         getPostsCount();
         getPostCommentsCount();
+
+        myDialog = new Dialog(this);
+        mUsers = new ArrayList<>();
     }
 
     private void initProperties(){
@@ -200,5 +219,71 @@ public class ProfileActivity extends ProjectxActivity {
                 }
             }
         });
+    }
+
+    public void showFriends(View view){
+        myDialog.setContentView(R.layout.activity_discover_friends);
+        recyclerView = myDialog.findViewById(R.id.recycler_view);
+        empty = myDialog.findViewById(R.id.empty);
+        empty.setVisibility(View.INVISIBLE);
+
+//        txtclose = myDialog.findViewById(R.id.txtclose);
+//        txtclose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                myDialog.dismiss();
+//            }
+//        });
+
+        initFirebase();
+        getUsers();
+
+        myDialog.show();
+    }
+
+    private void getUsers(){
+        DatabaseReference users = mDatabase.child("users").child(currentUser.getUid()).child("friends");
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUsers.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    DatabaseReference user = mDatabase.child("users").child(snapshot.getValue().toString());
+                    user.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+
+                            // add all users except the current one
+                            if (!user.getId().equals(currentUser.getUid())){
+                                mUsers.add(user);
+                            }
+                            initUsersList();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        users.addValueEventListener(postListener);
+
+    }
+
+    private void initUsersList(){
+        userAdapter = new UserAdapter(this, mUsers, false);
+        recyclerView.setAdapter(userAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

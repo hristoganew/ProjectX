@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:textColor="?attr/textColor"
-                    android:text="Following since: "/>
+                    android:text="Following since: 7/7/2019 "/>
             </LinearLayout>
 
         </LinearLayout>
@@ -71,9 +71,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#FFF">
+        android:background="?attr/cardBackground">
 
         <EditText
+            android:textColor="?attr/textColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/text_message"
