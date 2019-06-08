@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ProjectX</string>
+    <string name="default_notification_channel_id">Tvac_CH_01</string>
+    <string name="channel_name">Tvac_CH_01</string>
+    <string name="channel_description">Tvac_CH_01</string>
 </resources>

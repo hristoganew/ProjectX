@@ -58,7 +58,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         this.mUsers = mUsers;
         this.friendsList = friendsList;
 
-        myDialog = new Dialog(mContext);
+        if (mContext != null){
+            myDialog = new Dialog(mContext);
+        }
     }
 
     @Override

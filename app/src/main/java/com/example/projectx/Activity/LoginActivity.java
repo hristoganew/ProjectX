@@ -9,9 +9,12 @@ import android.widget.ProgressBar;
 
 import com.example.projectx.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class LoginActivity extends ProjectxActivity {
 
@@ -53,6 +56,7 @@ public class LoginActivity extends ProjectxActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("device_token").setValue(FirebaseInstanceId.getInstance().getToken());
                     updateUIAndFinish(HomeActivity.class);
                 } else {
                     showMessage("Login Failed " + task.getException().getMessage());

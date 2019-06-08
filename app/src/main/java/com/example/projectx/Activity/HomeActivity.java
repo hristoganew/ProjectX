@@ -71,6 +71,7 @@ public class HomeActivity extends ProjectxActivity {
     }
 
     public void logout(View view) {
+        mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).child("device_token").setValue("");
         mAuth.signOut();
         updateUIAndFinish(LoginActivity.class);
     }
