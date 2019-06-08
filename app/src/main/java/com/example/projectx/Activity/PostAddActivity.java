@@ -65,6 +65,7 @@ public class PostAddActivity extends ProjectxActivity {
     private void registerElements(){
         //init
         postRating = findViewById(R.id.post_rating);
+        postRating.setRating(5);
         postPhoto = findViewById(R.id.post_photo);
         postTypeDropdown = findViewById(R.id.post_dropdown);
         postTitle = findViewById(R.id.post_title);

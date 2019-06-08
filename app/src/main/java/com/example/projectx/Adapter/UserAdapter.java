@@ -91,6 +91,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                         Chat chat = snapshot.getValue(Chat.class);
                         if (chat.getReceiver().equals(currentUser.getUid()) && chat.getSender().equals(user.getId()) || chat.getReceiver().equals(user.getId()) && chat.getSender().equals(currentUser.getUid())){
                             viewHolder.lastMessage.setText(chat.getMessage());
+                            viewHolder.lastMessage.setVisibility(View.VISIBLE);
                         }
                     }
                 }
@@ -137,6 +138,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             image = itemView.findViewById(R.id.profile_image);
             cardView = itemView.findViewById(R.id.card_view);
             lastMessage = itemView.findViewById(R.id.last_message);
+            lastMessage.setVisibility(View.INVISIBLE);
         }
     }
 
